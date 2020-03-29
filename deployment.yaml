@@ -1,26 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jenkins
+  name: hello
   labels:
-    app: jenkins
+    app: hello
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: jenkins
+      app: hello
   template:
     metadata:
       labels:
-        app: jenkins
-  spec:
-    containers:
-    - name: hello
-      image: jaganthoutam/hello:latest
-      imagePullPolicy: Always
-      ports:
-      - containerPort: 5000
-        name: hello
+        app: hello
+    spec:
+      containers:
+      - name: hello
+        image: jaganthoutam/hello:latest
+        ports:
+        - containerPort: 5000
 ---
 #service
 apiVersion: v1
