@@ -32,7 +32,11 @@ pipeline {
              sshagent(['k8svagrant']) {
                  sh "scp -o StrictHostKeyChecking=no deployment.yaml vagrant@10.32.0.1:/home/vagrant/"
                  script {
+                     try {
+                     sh "ssh vagrant@10.32.0.1 kubectl create -f deployment.yaml"
+                     }catch(error){
                      sh "ssh vagrant@10.32.0.1 kubectl apply -f deployment.yaml"
+                     }
                  }
                 }
              }          
