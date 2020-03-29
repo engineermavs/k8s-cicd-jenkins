@@ -26,7 +26,7 @@ pipeline {
                 }
             }
         }        
-        stage('Deploy to GKE') {
+        stage('Deploy to k8s') {
              steps {
              sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
              sshagent(['k8svagrant']) {
