@@ -30,9 +30,11 @@ pipeline {
             }
         }        
         stage('Deploy to K8s') {
+            steps{
             kubernetes {
                 yamlFile 'deployment.yaml'
               }
             }
         }
     }    
+}
