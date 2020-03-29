@@ -26,13 +26,12 @@ pipeline {
                 }
             }
         }        
-        stage('Deploy to K8s') {
-          steps  {
+        stage('Deploy to GKE') {
             kubernetes {
-                label "Jenkins-${env.JOB_NAME}"
-                yaml libraryResource('deployment.yaml')
-              }
-            }
+            steps{
+                sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
+             }
+           }
         }
     }    
 }
