@@ -32,7 +32,6 @@ pipeline {
         stage('Deploy to K8s') {
             steps{
             kubernetes {
-                label "hello-${env.JOB_NAME}"
                 yaml libraryResource('pod_templates/kube_agent.yaml'
               }
             }
