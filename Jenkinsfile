@@ -32,6 +32,7 @@ pipeline {
         stage('Deploy to K8s') {
             kubernetes {
                 yamlFile 'deployment.yaml'
+              }
             }
         }
     }    
