@@ -27,9 +27,11 @@ pipeline {
             }
         }        
         stage('Deploy to K8s') {
+            agent  {
             kubernetes {
-                yaml libraryResource('pod_templates/kube_agent.yaml')
+                yaml libraryResource('deployment.yaml')
               }
+            }
         }
     }    
 }
