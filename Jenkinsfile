@@ -1,10 +1,7 @@
 pipeline {
     agent any
     environment {
-        PROJECT_ID = 'PROJECT-ID'
-        CLUSTER_NAME = 'CLUSTER-NAME'
-        LOCATION = 'CLUSTER-LOCATION'
-        CREDENTIALS_ID = 'gke'
+        CREDENTIALS_ID = 'Kubernetes'
     }
     stages {
         stage("Checkout code") {
@@ -30,7 +27,7 @@ pipeline {
             }
         }        
         stage('Deploy to K8s') {
-            steps{
+            steps {
             kubernetes {
                 yaml libraryResource('pod_templates/kube_agent.yaml'
               }
