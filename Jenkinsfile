@@ -29,6 +29,7 @@ pipeline {
         stage('Deploy to K8s') {
           steps  {
             kubernetes {
+                label "Jenkins-${env.JOB_NAME}"
                 yaml libraryResource('deployment.yaml')
               }
             }
