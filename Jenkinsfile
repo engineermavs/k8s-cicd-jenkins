@@ -27,7 +27,7 @@ pipeline {
             }
         }        
         stage('Deploy to K8s') {
-            agent  {
+          steps  {
             kubernetes {
                 yaml libraryResource('deployment.yaml')
               }
