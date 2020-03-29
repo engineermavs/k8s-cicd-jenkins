@@ -30,7 +30,10 @@ pipeline {
              steps {
              sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
              sshagent(['k8svagrant']) {
-
+                 sh "scp -o StrictHostKeyChecking=no deployment.yam vagrant@10.32.0.1:/home/vagrant/"
+                 script {
+                     sh "ssh vagrant@10.32.0.1 kubectl create -f deployment.yaml"
+                 }
                 }
              }          
           }
