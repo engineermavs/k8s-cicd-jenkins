@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        CREDENTIALS_ID = 'Kubernetes'
+        DOCKER_CRED = 'dockerhub'
     }
     stages {
         stage("Checkout code") {
@@ -12,7 +12,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("jaganthoutam/hello:${env.BUILD_ID}")
+                    myapp = docker.build("jaganthoutam/maven-test:${env.BUILD_ID}")
                 }
             }
         }
@@ -25,21 +25,6 @@ pipeline {
                     }
                 }
             }
-        }        
-        stage('Deploy to k8s') {
-             steps {
-             sh "sed -i 's/hello:latest/hello:${env.BUILD_ID}/g' deployment.yaml"
-             sshagent(['k8svagrant']) {
-                 sh "scp -o StrictHostKeyChecking=no deployment.yaml vagrant@10.32.0.1:/home/vagrant/"
-                 script {
-                     try {
-                     sh "ssh vagrant@10.32.0.1 kubectl create -f deployment.yaml"
-                     }catch(error){
-                     sh "ssh vagrant@10.32.0.1 kubectl apply -f deployment.yaml"
-                     }
-                 }
-                }
-             }          
-          }
+          }        
         }
    }
