@@ -12,7 +12,7 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("jaganthoutam/nodejs-test:${env.BUILD_ID}")
+                    myapp = docker.build("mvllrmnmjc/nodejs-test:${env.BUILD_ID}")
                 }
             }
         }
