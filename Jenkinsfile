@@ -1,3 +1,5 @@
+@Library('shared-library') _
+
 pipeline {
     agent any
     environment {
@@ -12,17 +14,14 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("mvllrmnmjc/nodejs-test:${env.BUILD_ID}")
+                    npmStep.build()
                 }
             }
         }
         stage("Push image") {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            myapp.push("latest")
-                            myapp.push("${env.BUILD_ID}")
-                    }
+                    npmStep.push()
                 }
             }
           }        
