@@ -16,14 +16,14 @@ pipeline {
         stage("Build image") {
             steps {
                 script {
-                    npmStep.build()
+                    step.npmBuild()
                 }
             }
         }
         stage("Push image") {
             steps {
                 script {
-                    npmStep.push()
+                    step.pushDocker()
                 }
             }
           }        
